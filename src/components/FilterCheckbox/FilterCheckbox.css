@@ -3,6 +3,18 @@
     background-color: #FAFAFA;
 }
 
+@media all and (max-width: 768px) {
+  .filter-checkbox {
+    padding: 0 0 61px;
+  }
+}
+
+@media all and (max-width: 768px) {
+  .filter-checkbox {
+    padding: 0 0 50px;
+  }
+}
+
 .filter-checkbox__label {
     position: relative;
     display: flex;
@@ -19,7 +31,7 @@
   
   @media all and (max-width: 390px) {
     .filter-checkbox__label {
-        margin: 0 35%;
+        margin: 0 29%;
     }
   }
 

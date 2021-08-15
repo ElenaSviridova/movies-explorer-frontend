@@ -34,8 +34,7 @@
 @media all and (max-width: 370px) {
     .movies-card-list {
         grid-template-columns: repeat(auto-fit, 300px);
-        column-gap: 24px;
-        row-gap: 35px;
+        row-gap: 14px;
     }
 }
 

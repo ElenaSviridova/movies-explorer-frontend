@@ -17,6 +17,14 @@
     justify-content: space-between;
 }
 
+@media all and (max-width: 320px) {
+    .movies-card__caption {
+        font-size: 12px;
+        line-height: 18px;
+        margin: 14px 14px;
+    }
+}
+
 .movies-card__time {
     font-size: 13px;
     line-height: 18px;
@@ -24,6 +32,14 @@
     font-family: 'Inter', 'Arial', sans-serif;
     color: #A0A0A0;
 }
+
+@media all and (max-width: 320px) {
+    .movies-card__time {
+        font-size: 10px;
+        line-height: 18px;
+    }
+}
+
 
 .movies-card__image {
     width: 100%;

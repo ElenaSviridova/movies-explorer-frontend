@@ -14,10 +14,10 @@ function Register() {
             <h1 className="login__title">Добро пожаловать!</h1>
             <form className="register__container" >
                 <label className="login__label" for="name">Имя</label>
-                <input required id="name" className="login__input" type="text" name="name" ></input>
+                <input required id="name" className="login__input" type="text" name="name" placeholder="Елена"></input>
                 <span className="login__error"></span>
                 <label className="login__label" for="email">E-mail</label>
-                <input required id="email" className="login__input" type="email" name="email"></input>
+                <input required id="email" className="login__input" type="email" name="email" placeholder="pochta@yandex.ru"></input>
                 <span className="login__error"></span>
                 <label className="login__label" for="password">Пароль</label>
                 <input required id="password" className="login__input login__input_type_error" type="password" name="password"></input>
