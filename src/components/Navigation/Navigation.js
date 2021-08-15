@@ -18,16 +18,16 @@ function Navigation({navClassName, navProfileClassName}) {
                     <NavLink className="navigation__profile-link" exact to="/profile">Аккаунт</NavLink>
                     <button className="navigation__profile-button"></button>
                 </div>  
-                <div className="header__burger-menu">
+                <div className="navigation__burger-menu">
                 <input id="menu-toggle" type="checkbox" />
-                <label className="header__menu-btn" for="menu-toggle">
+                <label className="navigation__menu-btn" for="menu-toggle">
                   <span></span>
                 </label>
-                <div className="background">
-                  <ul className="header__menubox">
-                          <li className="nav__li"><NavLink className="header__menu-item" exact to="/">Главная</NavLink></li>
-                          <li className="nav__li"><NavLink className="header__menu-item" exact to="/movies">Фильмы</NavLink></li>
-                          <li className="nav__li"><NavLink className="header__menu-item" exact to="/saved-movies">Сохранённые фильмы</NavLink></li>
+                <div className="navigation__background">
+                  <ul className="navigation__menubox">
+                          <li className="nav__li"><NavLink className="navigation__menu-item" exact to="/">Главная</NavLink></li>
+                          <li className="nav__li"><NavLink className="navigation__menu-item" exact to="/movies">Фильмы</NavLink></li>
+                          <li className="nav__li"><NavLink className="navigation__menu-item" exact to="/saved-movies">Сохранённые фильмы</NavLink></li>
                           <li className="navigation__profile-link-burger">
                               <NavLink className="navigation__profile-link" exact to="/profile">Аккаунт</NavLink>
                               <button className="navigation__profile-button"></button>

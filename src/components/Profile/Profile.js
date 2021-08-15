@@ -9,7 +9,7 @@ function Profile() {
         <Header navClassName="navigation" navProfile="navigation__profile" headerReg="unvisible"/>
         <div className="profile">
             <h1 className="profile__title">Привет, Елена!</h1>
-            <form className="profile__container" >
+            <form className="profile__container">
                 <label className="profile__label-name" for="password">Имя</label>
                 <input required id="name" className="profile__input" type="text" name="name" placeholder="Елена"></input>
                 <label className="profile__label-email" for="email">E-mail</label>
