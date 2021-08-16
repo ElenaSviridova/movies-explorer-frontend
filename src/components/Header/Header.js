@@ -10,7 +10,7 @@ function Header({navClassName, navProfile, headerReg}) {
 
     return (
         <header className="header">
-              <NavLink exact to="/">
+              <NavLink exact to="/" className="header__link">
                 <img src={logoBlueC} alt="Картинка логотипа" className="header__logo"/>
               </NavLink>
               <Navigation navClassName={navClassName} navProfileClassName={navProfile}/>

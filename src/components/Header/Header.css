@@ -17,6 +17,11 @@
     }
 }
 
+.header__link {
+    width: 38px;
+    height: 38px;
+}
+
 .header__register {
     margin-right: 30px;
     font-size: 12px;

@@ -29,7 +29,7 @@
 .navigation__profile-button {
     background-image: url('../images/account-icon.svg');
     background-repeat: no-repeat;
-    background-size: 10.38px 10.67px;
+    background-size: 11px 11px;
     background-position: center;
     width: 30px;
     height: 30px;
@@ -37,6 +37,7 @@
     border: none;
     border-radius: 6px;
     padding: 0;
+    margin: 0;
     align-self: flex-end;
 }
 
