@@ -21,8 +21,6 @@ function Profile() {
                     <button className="profile__button">Редактировать</button>
                     <NavLink className="profile__link" exact to="/">Выйти из аккаунта</NavLink>
                 </div>
-                
-                
             </form>
         </div>
         </>
