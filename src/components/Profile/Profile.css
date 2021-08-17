@@ -1,0 +1,152 @@
+.profile {
+    margin: 0 auto;
+    max-width: 410px;
+    padding: 74px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+@media all and (max-width: 768px) {
+    .profile {
+        padding: 236px 0 269px;
+    }
+}
+
+@media all and (max-width: 425px) {
+    .profile {
+        max-width: 260px;
+        padding: 70px 0 40px;
+    }
+}
+
+.profile__title {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 29px;
+    font-family: 'Inter', 'Arial', sans-serif;
+    margin: 0 0 106px;
+    text-align: center;
+
+}
+
+@media all and (max-width: 768px) {
+    .profile__title {
+        margin: 0 0 79px;
+    }
+}
+
+@media all and (max-width: 320px) {
+    .profile__title {
+        margin: 0 0 63px;
+    }
+}
+
+
+.profile__container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+    min-height: 347px;
+}
+
+@media all and (max-width: 768px) {
+    .profile__container {
+        min-height: 327px
+    }
+}
+
+@media all and (max-width: 425px) {
+    .profile__container {
+        min-height: 504px
+    }
+}
+
+.profile__input {
+    position: relative;
+    padding: 17px 0 16px;
+    border: none;
+    border-bottom: 1px solid #E8E8E8;
+    text-align: right;
+    outline: none;
+}
+
+.profile__input::placeholder {
+    color: black;
+}
+
+
+
+.profile__input:last-of-type {
+    border-bottom: none;
+}
+
+.profile__input:focus {
+    background-color: rgba(52, 86, 243, 0.1);
+}
+
+.profile__label-name {
+    position: absolute;
+    top: 17px;
+    left: 0px;
+    z-index: 1;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 13px;
+    font-family: 'Inter', 'Arial', sans-serif;
+}
+
+.profile__label-email {
+    position: absolute;
+    top: 67px;
+    left: 0px;
+    z-index: 1;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 13px;
+    font-family: 'Inter', 'Arial', sans-serif;
+}
+
+.profile__button {
+    align-self: center;
+    border: none;
+    background-color: white;
+    margin-bottom: 16px;
+    padding: 0;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 16px;
+    font-family: 'Inter', 'Arial', sans-serif;
+}
+
+@media all and (max-width: 450px) {
+    .profile__button {
+        font-size: 12px;
+        line-height: 15px;
+    }
+}
+
+.profile__button:hover {
+    opacity: 0.6;
+}
+
+.profile__link {
+    align-self: center;
+    border: none;
+    padding: 0;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 16px;
+    font-family: 'Inter', 'Arial', sans-serif;
+    color: #EE3465;
+    text-decoration: none;
+    text-align: center;
+}
+
+@media all and (max-width: 450px) {
+    .profile__link {
+        font-size: 12px;
+        line-height: 15px;
+    }
+}

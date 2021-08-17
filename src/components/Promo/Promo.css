@@ -1,0 +1,140 @@
+.promo {
+    text-align: center;
+    margin: 0;
+    padding: 75px 70px;
+    background-color: #DDDEE3;
+    display: flex;
+    justify-content: space-between;
+}
+
+@media all and (max-width: 768px) {
+    .promo {
+        flex-direction: column-reverse;
+        padding: 140px 44px 76px;
+    }
+}
+
+@media all and (max-width: 530px) {
+    .promo {
+        padding: 70px 10px 30px;
+    }
+}
+
+.promo__text {
+    display: flex;
+    flex-direction: column;
+}
+
+@media all and (max-width: 768px) {
+    .promo__text {
+        align-items: center;
+    }
+}
+  
+.promo__header {
+    font-size: 50px;
+    font-weight: 400;
+    line-height: 58px;
+    letter-spacing: -0.04em;
+    text-align: left;
+    font-family: 'Inter', 'Arial', sans-serif;
+    color: black;
+    margin: 0;
+    padding: 0 0 36px;
+    width: 78.2%;
+    word-wrap: normal;
+}
+
+@media all and (max-width: 768px) {
+    .promo__header {
+        font-size: 40px;
+        line-height: 50px;
+        padding-top: 7.1%;
+        padding-bottom: 22px;
+        text-align: center;
+        width: 100%;
+    }
+}
+
+@media all and (max-width: 530px) {
+    .promo__header {
+        font-size: 30px;
+        line-height: 38px;
+        padding-top: 44px;
+        padding-bottom: 24px;
+    }
+}
+
+
+.promo__image {
+    height: 304px;
+    max-width: 310px;
+    margin: 0 auto;
+}
+
+@media all and (max-width: 530px) {
+    .promo__image {
+        height: 206px;
+        max-width: 210px;
+    }
+}
+
+.promo__caption {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 16px;
+    text-align: left;
+    font-family: 'Inter', 'Arial', sans-serif;
+    color: black;
+    margin: 0;
+    opacity: 0.5;
+    width: 38.2%;
+}
+
+@media all and (max-width: 768px) {
+    .promo__caption {
+        width: 38.3%;
+        text-align: center;
+    }
+}
+
+@media all and (max-width: 530px) {
+    .promo__caption {
+        width: 86.8%;
+    }
+}
+
+.promo__link {
+    text-decoration: none;
+    color: #000;
+}
+
+.promo__button {
+    background-color: #DDDEE3;
+    width: 129px;
+    height: 36px;
+    border-radius: 3px;
+    border: 1px solid black;
+    margin: 18% 0 0;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    font-family: 'Inter', 'Arial', sans-serif;
+    color: black;
+}
+
+@media all and (max-width: 768px) {
+    .promo__button {
+        margin: 13.5% 0 0;
+    }
+}
+
+@media all and (max-width: 320px) {
+    .promo__button {
+        margin: 26.7% 0 0;
+    }
+}
+
+.promo__button:hover {
+    opacity: 0.6;
+}

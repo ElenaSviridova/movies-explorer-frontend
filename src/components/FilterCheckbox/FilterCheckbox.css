@@ -1,0 +1,100 @@
+.filter-checkbox {
+    padding: 0 0 48px;
+    background-color: #FAFAFA;
+}
+
+@media all and (max-width: 768px) {
+  .filter-checkbox {
+    padding: 0 0 61px;
+  }
+}
+
+@media all and (max-width: 768px) {
+  .filter-checkbox {
+    padding: 0 0 50px;
+  }
+}
+
+.filter-checkbox__label {
+    position: relative;
+    display: flex;
+    width: 36px;
+    height: 20px;
+    margin: 0 43%;   
+  }
+
+  @media all and (max-width: 768px) {
+    .filter-checkbox__label {
+        margin: 0 39%;
+    }
+}
+  
+  @media all and (max-width: 390px) {
+    .filter-checkbox__label {
+        margin: 0 29%;
+    }
+  }
+
+  .filter-checkbox__caption {
+      margin: 0 0 0 42px;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 18px;
+      font-family: 'Inter', 'Arial', sans-serif;
+  }
+
+  @media all and (max-width: 390px) {
+    .filter-checkbox__caption {
+      font-size: 11px;
+    }
+  }
+  
+  .filter-checkbox__button {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .filter-checkbox__button:checked {
+      border: 6px solid black;
+    }
+  
+    .filter-checkbox__slider-round {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #2BE080;
+      -webkit-transition: .4s;
+      transition: .4s;
+      border-radius: 34px;
+  }
+    
+    .filter-checkbox__slider-round:before {
+      position: absolute;
+      content: "";
+      height: 8px;
+      width: 8px;
+      right: 6px;
+      bottom: 6px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    
+    .filter-checkbox__button:checked + .filter-checkbox__slider-round {
+      background-color: #ccc;
+    }
+    
+    .filter-checkbox__button:focus + .filter-checkbox__slider-round {
+      box-shadow: 0 0 1px #2BE080;
+    }
+    
+    .filter-checkbox__button:checked + .filter-checkbox__slider-round:before {
+      -webkit-transform: translateX(-18px);
+      -ms-transform: translateX(-18px);
+      transform: translateX(-18px);
+    }
