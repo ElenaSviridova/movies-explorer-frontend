@@ -1,17 +1,17 @@
 .filter-checkbox {
-    padding: 0 0 48px;
+    padding: 29px 0 48px;
     background-color: #FAFAFA;
 }
 
 @media all and (max-width: 768px) {
   .filter-checkbox {
-    padding: 0 0 61px;
+    padding: 29px 0 61px;
   }
 }
 
-@media all and (max-width: 768px) {
+@media all and (max-width: 450px) {
   .filter-checkbox {
-    padding: 0 0 50px;
+    padding: 42px 0 50px;
   }
 }
 

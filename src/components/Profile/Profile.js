@@ -12,9 +12,9 @@ function Profile() {
             <h1 className="profile__title">Привет, Елена!</h1>
             <form className="profile__container">
                 <div className="login__enter">
-                    <label className="profile__label-name" for="password">Имя</label>
+                    <label className="profile__label-name" htmlFor="password">Имя</label>
                     <input required id="name" className="profile__input" type="text" name="name" placeholder="Елена"></input>
-                    <label className="profile__label-email" for="email">E-mail</label>
+                    <label className="profile__label-email" htmlFor="email">E-mail</label>
                     <input required id="email" className="profile__input" type="email" name="email" placeholder="lenatwi@rambler.ru"></input>
                 </div>
                 <div className="login__enter">

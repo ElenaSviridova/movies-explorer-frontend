@@ -6,17 +6,26 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 
-function Movies() {
+
+function Movies({onMovieSearch, onSearchInput, movies, notFoundText, isLoading, addButton, onSaveMovieButtonClick, selectedMoviesCard}) {
+ 
+  const moviesCardButtonClassName = (
+    `movies-card__button ${selectedMoviesCard ? 'red-button' : ''}`
+  )
+  
   return (
+    <>
       <section className="movies">
         <Header navClassName="navigation" navProfile="navigation__profile" headerReg="unvisible"/>
-        <SearchForm/>
+        <SearchForm onMovieSearch={onMovieSearch} onSearchInput={onSearchInput} />
         <FilterCheckbox/>
-        <MoviesCardList/>
-        <Footer/>
+        <MoviesCardList movies={movies} notFoundText={notFoundText} isLoading={isLoading} addButton={addButton} onSaveMovieButtonClick={onSaveMovieButtonClick} moviesCardButtonClassName={moviesCardButtonClassName}/>
+        
         {/* <Preloader/>
         <MoviesCard/> */}
       </section>
+      <Footer/>
+     </> 
   );
 }
 

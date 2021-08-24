@@ -20,7 +20,7 @@ function Navigation({navClassName, navProfileClassName}) {
                 </div>  
                 <div className="navigation__burger-menu">
                 <input id="menu-toggle" type="checkbox" />
-                <label className="navigation__menu-btn" for="menu-toggle">
+                <label className="navigation__menu-btn" htmlFor="menu-toggle">
                   <span></span>
                 </label>
                 <div className="navigation__background">

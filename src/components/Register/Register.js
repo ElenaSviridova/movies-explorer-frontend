@@ -3,24 +3,44 @@ import '../../styles/login.css'; /*общие блоки стилей наход
 import logoBlueC from '../../images/logo-blue.svg';
 import '../../styles/visible.css';
 import { NavLink } from 'react-router-dom';
+import React, { useState } from 'react';
 
 
-function Register() {
+function Register({handleRegister}) {
+
+    const [ data , setData] = useState({
+        userName: '',
+        email: '',
+        password: ''
+    });
+    
+
+
+   function handleChange(e) {
+       const {name, value} = e.target;
+       setData({...data, [name]: value})
+   }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        const {userName, email, password } = data;
+        handleRegister({userName, email, password})
+    }
 
     return (
         <div className="login">
             <img src={logoBlueC} alt="Картинка логотипа" className="header__logo"/>
             <h1 className="login__title">Добро пожаловать!</h1>
-            <form className="login__container" >
+            <form className="login__container" onSubmit={handleSubmit}>
                 <div className="login__enter">
-                    <label className="login__label" for="name">Имя</label>
-                    <input required id="name" className="login__input" type="text" name="name" placeholder="Елена"></input>
+                    <label className="login__label" htmlFor="name">Имя</label>
+                    <input required id="name" className="login__input" type="text" name="name" placeholder="Елена" value={data.userName} onChange={handleChange}></input>
                     <span className="login__error"></span>
-                    <label className="login__label" for="email">E-mail</label>
-                    <input required id="email" className="login__input" type="email" name="email" placeholder="pochta@yandex.ru"></input>
+                    <label className="login__label" htmlFor="email">E-mail</label>
+                    <input required id="email" className="login__input" type="email" name="email" placeholder="pochta@yandex.ru" value={data.email} onChange={handleChange}></input>
                     <span className="login__error"></span>
-                    <label className="login__label" for="password">Пароль</label>
-                    <input required id="password" className="login__input login__input_type_error" type="password" name="password"></input>
+                    <label className="login__label" htmlFor="password">Пароль</label>
+                    <input required id="password" className="login__input login__input_type_error" type="password" name="password" value={data.password} onChange={handleChange}></input>
                     <span className="login__error visible">Что-то пошло не так...</span>
                     </div>
                 <div className="login__enter">
