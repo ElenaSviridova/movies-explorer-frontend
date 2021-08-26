@@ -2,7 +2,7 @@ import '../../styles/logo.css';
 import React, { useState } from 'react';
 import '../../styles/login.css'; /*общие блоки стилей находятся в папке styles*/
 import logoBlueC from '../../images/logo-blue.svg';
-import '../../styles/visible.css';
+import '../../styles/unvisible.css';
 import { NavLink } from 'react-router-dom';
 
 
@@ -41,8 +41,8 @@ function Login({handleLogin}) {
                 <input required id="email" className="login__input" type="email" name="email" placeholder="pochta@yandex.ru" value={data.email} onChange={handleChange}></input>
                 <span className="login__error"></span>
                 <label className="login__label" htmlFor="password">Пароль</label>
-                <input required id="password" className="login__input login__input_type_error" type="password" name="password" value={data.password} onChange={handleChange}></input> 
-                <span className="login__error visible">Что-то пошло не так...</span>
+                <input required id="password" className="login__input" type="password" name="password" value={data.password} onChange={handleChange}></input> 
+                <span className="login__error unvisible">Что-то пошло не так...</span>
                 </div>
                 
                 <div className="login__enter">

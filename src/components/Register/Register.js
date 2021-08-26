@@ -1,7 +1,7 @@
 import '../../styles/logo.css';
 import '../../styles/login.css'; /*общие блоки стилей находятся в папке styles*/
 import logoBlueC from '../../images/logo-blue.svg';
-import '../../styles/visible.css';
+import '../../styles/unvisible.css';
 import { NavLink } from 'react-router-dom';
 import React, { useState } from 'react';
 
@@ -33,15 +33,15 @@ function Register({handleRegister}) {
             <h1 className="login__title">Добро пожаловать!</h1>
             <form className="login__container" onSubmit={handleSubmit}>
                 <div className="login__enter">
-                    <label className="login__label" htmlFor="name">Имя</label>
-                    <input required id="name" className="login__input" type="text" name="name" placeholder="Елена" value={data.userName} onChange={handleChange}></input>
+                    <label className="login__label" htmlFor="userName">Имя</label>
+                    <input required id="name" className="login__input" type="text" name="userName" placeholder="Елена" value={data.userName} onChange={handleChange}></input>
                     <span className="login__error"></span>
                     <label className="login__label" htmlFor="email">E-mail</label>
                     <input required id="email" className="login__input" type="email" name="email" placeholder="pochta@yandex.ru" value={data.email} onChange={handleChange}></input>
                     <span className="login__error"></span>
                     <label className="login__label" htmlFor="password">Пароль</label>
-                    <input required id="password" className="login__input login__input_type_error" type="password" name="password" value={data.password} onChange={handleChange}></input>
-                    <span className="login__error visible">Что-то пошло не так...</span>
+                    <input required id="password" className="login__input" type="password" name="password" value={data.password} onChange={handleChange}></input>
+                    <span className="login__error unvisible">Что-то пошло не так...</span>
                     </div>
                 <div className="login__enter">
                     <button type="submit" className="login__button">Зарегистрироваться</button>

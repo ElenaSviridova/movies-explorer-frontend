@@ -77,6 +77,6 @@ class Api {
     }
 }
 
-const mainApi = new Api({adress: 'https://api.es.sviridova.nomoredomains.monster'});
+const mainApi = new Api({adress: 'https://api.es.sviridova.nomoredomains.monster', token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTI2MDFjZmMxYmQ3OTY2MDhlMTdjOTgiLCJpYXQiOjE2Mjk4ODA4ODcsImV4cCI6MTYzMDQ4NTY4N30._WYfhpgsSZWal6hu2XtFMj6LcZfHDw29tImjRaIuZJ0'});
 
 export default mainApi
