@@ -78,14 +78,11 @@ function App() {
 // }
 
   function checkSearch() {
+    console.log('kuku')
     if (filteredMovies.length === 0) {
       setSearchError('Ничего не найдено');
     }
-    if (filteredMovies.length < moviesCountIndex) {
-      setAddLoadMoreButton(false);
-      setMoviesToShow(filteredMovies);
-      console.log(filteredMovies.length, moviesCountIndex)
-    }
+    
     
   }
 //отрисовка карточек
@@ -95,16 +92,35 @@ function App() {
       changeMoviesCardListScroll();
       // localStorage.setItem('filteredMovies',JSON.stringify(filteredMovies));
     } 
+     
 // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [search, moviesCountIndex])
+}, [search])
+
+
+//эффект по нажатию по кнопке ещё
+  useEffect(() => {
+    if (filteredMovies.length < moviesCountIndex) {
+      setAddLoadMoreButton(false);
+      setMoviesToShow(filteredMovies);
+      console.log(filteredMovies.length, moviesCountIndex)
+    }
+     
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, [moviesCountIndex])
 
 
 
 //добавляем кнопку ещё и, в зависимости от размера экрана количетсво карточек
 function changeMoviesCardListScroll() {
+  if (filteredMovies.length < moviesCountIndex) {
+    setAddLoadMoreButton(false);
+    setMoviesToShow(filteredMovies);
+    console.log(filteredMovies.length, moviesCountIndex)
+  }
   if (document.documentElement.clientWidth > 1280) {
     setMoviesToShow(filteredMovies.slice(0, moviesCountIndex));
     setAddLoadMoreButton(true);
+    setMoviesCountIndex(moviesCountIndex + 3);
   } 
   
   // if (document.documentElement.clientWidth > 768) {
@@ -122,6 +138,7 @@ function changeMoviesCardListScroll() {
   // }
 
   else {
+    console.log(filteredMovies)
     setAddLoadMoreButton(false);
     moviesToShow(filteredMovies);
   }
@@ -144,6 +161,7 @@ function handleLoadMoreButtonClick() {
        .then((data) => {
          setIsLoading(false)
          setMovies(data);
+         console.log(movies)
          setSearch(true);     
        })
        .catch((error) => {
