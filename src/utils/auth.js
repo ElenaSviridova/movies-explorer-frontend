@@ -1,14 +1,15 @@
-export const BASE_URL = 'https://api.es.sviridova.nomoredomains.monster';
+export const BASE_URL = 'http://localhost:3000';
+//https://api.es.sviridova.nomoredomains.monster
 
 const checkResponse = (response) => response.ok ? response.json() : Promise.reject(`Ошибка: ${response.status}`)
 
-export const register = (userName, email, password) => {
+export const register = (name, email, password) => {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({userName, email, password})
+    body: JSON.stringify({name, email, password})
   })
   .then(checkResponse)
   

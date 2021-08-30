@@ -22,147 +22,140 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [searchError, setSearchError] = useState('');//state переменная, если запрос не дал результатов
   const [search, setSearch] = useState(false); //осуществление поиска
-  // const [moviesIsFiltered, setMoviesIsFiltered] = useState([]);//отфильтрованные фильмы
   const [isLoading, setIsLoading] = useState(false); //загрузка прелоадера
   const [moviesToShow, setMoviesToShow] = useState([]);//карточки, которые нужно отобразить до кнопки Ещё
   const [addLoadMoreButton, setAddLoadMoreButton] = useState(false);// добавляет кнопку ещё
-  const [selectedMoviesCard, setSelectedMoviesCard] = useState(false);
-  // const [loggedIn, setLoggedIn] = useState(null);
+  // const [selectedMoviesCard, setSelectedMoviesCard] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(null);
+  const [savedMovies, setSavedMovies] = useState([]);
   // const [email, setEmail] = useState('');
   const [moviesCountIndex, setMoviesCountIndex] = useState(3);
   const history = useHistory();
 
   const handleError = (error) => console.error(error); 
-  const filteredMovies = movies.filter(movie => filterMovie(movie, movieSearchQuery));
-
+  
+  console.log(movies)
   function filterMovie(movie, query) {
     const regexp = new RegExp(query, "gi");
     return movie.nameRU.match(regexp);
   }
 
-//   useEffect(() => {
-//     if(loggedIn) {
-//         Promise.all([moviesApi.getMovies(), mainApi.getProfileInfo()])
-//         .then(([data, userData]) => {
-//             setCurrentUser(userData);
-//             setMovies(data);
-//         })
-//         .catch(handleError)
-//     }  
-// // eslint-disable-next-line react-hooks/exhaustive-deps
-// }, [loggedIn]);
+  useEffect(() => {
+    if(loggedIn) {
+        Promise.all([mainApi.getSavedMovies(), mainApi.getProfileInfo()])
+        .then(([data, userData]) => {
+            setCurrentUser(userData);
+            setSavedMovies(data);
+            console.log('initialSavedMovies:',data)
+        })
+        .catch(handleError)
+    }  
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, [loggedIn]);
 
+useEffect(() => {
+  checkToken()
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, [])
 
-//   useEffect(() => {
-//     checkToken()
-// // eslint-disable-next-line react-hooks/exhaustive-deps
-// }, [])
+useEffect(() => {
+  if(loggedIn) {
+      history.push('/movies')
+  }
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, [loggedIn])
 
-// useEffect(() => {
-//   if(loggedIn) {
-//       history.push('/')
-//   }
-// // eslint-disable-next-line react-hooks/exhaustive-deps
-// }, [loggedIn])
-
-// function checkToken() {
-//   const token = localStorage.getItem('token')
-//   if (token) {
-//       auth.getContent(token)
-//       .then(res => {
-//           setEmail(res.email)
-//           setLoggedIn(true)
-//       })
-//       .catch(handleError)
-//   }
-// }
+function checkToken() {
+  const token = localStorage.getItem('token')
+  if (token) {
+      auth.getContent(token)
+      .then(res => {
+          // setEmail(res.email)
+          setLoggedIn(true)
+      })
+      .catch(handleError)
+  }
+}
 
   function checkSearch() {
     console.log('kuku')
-    if (filteredMovies.length === 0) {
+    if (movies.length === 0) {
       setSearchError('Ничего не найдено');
     }
-    
-    
   }
 //отрисовка карточек
   useEffect(() => {
     if(search) {
       checkSearch();
-      changeMoviesCardListScroll();
+      changeMoviesCardList();
       // localStorage.setItem('filteredMovies',JSON.stringify(filteredMovies));
     } 
      
 // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [search])
-
-
-//эффект по нажатию по кнопке ещё
-  useEffect(() => {
-    if (filteredMovies.length < moviesCountIndex) {
-      setAddLoadMoreButton(false);
-      setMoviesToShow(filteredMovies);
-      console.log(filteredMovies.length, moviesCountIndex)
-    }
-     
-// eslint-disable-next-line react-hooks/exhaustive-deps
-}, [moviesCountIndex])
-
+}, [search, moviesCountIndex, savedMovies])
 
 
 //добавляем кнопку ещё и, в зависимости от размера экрана количетсво карточек
-function changeMoviesCardListScroll() {
-  if (filteredMovies.length < moviesCountIndex) {
+function changeMoviesCardList() {
+  if (movies.length < moviesCountIndex) {
     setAddLoadMoreButton(false);
-    setMoviesToShow(filteredMovies);
-    console.log(filteredMovies.length, moviesCountIndex)
-  }
-  if (document.documentElement.clientWidth > 1280) {
-    setMoviesToShow(filteredMovies.slice(0, moviesCountIndex));
-    setAddLoadMoreButton(true);
-    setMoviesCountIndex(moviesCountIndex + 3);
+    console.log(movies.length, moviesCountIndex)
   } 
-  
-  // if (document.documentElement.clientWidth > 768) {
-  //   setMoviesCountIndex(moviesCountIndex + 2);
-  //   setMoviesToShow(filteredMovies.slice(0,2));
-  //   console.log(filteredMovies)
-  //   console.log(moviesToShow)
-  //   setAddLoadMoreButton(true);
-  // }
-  // if ((document.documentElement.clientWidth < 490)&&(filteredMovies.length > 1)) {
-  //   setMoviesToShow(filteredMovies.slice(0,1));
-  //   console.log(filteredMovies)
-  //   console.log(moviesToShow)
-  //   setAddLoadMoreButton(true);
-  // }
-
   else {
-    console.log(filteredMovies)
-    setAddLoadMoreButton(false);
-    moviesToShow(filteredMovies);
+    setAddLoadMoreButton(true);
   }
+  
+  setMoviesToShow(movies.slice(0, moviesCountIndex));
+  // setSavedMovies(movies.slice(0, moviesCountIndex));
+
+
 }
 
 //клик по кнопке "Ещё"
 function handleLoadMoreButtonClick() {
-  setMoviesCountIndex(moviesCountIndex + 3);
-  setMoviesToShow(filteredMovies.slice(0, moviesCountIndex));
+  if (document.documentElement.clientWidth > 1280) {
+    setMoviesCountIndex(moviesCountIndex + 3)
+  }
+  else if ((document.documentElement.clientWidth > 320) && (document.documentElement.clientWidth < 1280)) {
+    setMoviesCountIndex(moviesCountIndex + 2)
+  }
+  // setMoviesToShow(movies.slice(0, moviesCountIndex));
+}
+
+function setFistMoviesCountIndex() {
+  if (document.documentElement.clientWidth > 1280) {
+    setMoviesCountIndex(12)
+  }
+  if ((document.documentElement.clientWidth > 320)&&(document.documentElement.clientWidth <= 480)) {
+    setMoviesCountIndex(5)
+  }
+  else if ((document.documentElement.clientWidth > 480) && (document.documentElement.clientWidth <= 768)) {
+    setMoviesCountIndex(8)
+  }
 }
 
 
 //сабмит кнопи search
   function handleSearchSubmit(e) {
-    setSearchError('')
+    setFistMoviesCountIndex();
+    setSearchError('');
     setMoviesToShow([]);
     setIsLoading(true);
     setSearch(false);
       moviesApi.getMovies()
        .then((data) => {
-         setIsLoading(false)
-         setMovies(data);
-         console.log(movies)
-         setSearch(true);     
+         setIsLoading(false);
+         const filteredMovies = data.filter(movie => filterMovie(movie, movieSearchQuery));
+         console.log('dadad',filteredMovies)
+         filteredMovies.map((m) => {
+           m.thumbnail = 'https://api.nomoreparties.co'+ m.image.formats.thumbnail.url;
+           m.image ='https://api.nomoreparties.co' + m.image.url;
+           m.trailer = m.trailerLink;
+           m.movieId = m.id
+          });
+         setMovies(filteredMovies);
+         setSearch(true); 
+
        })
        .catch((error) => {
          console.log(error)
@@ -176,60 +169,79 @@ function handleLoadMoreButtonClick() {
     setMovieSearchQuery(e.target.value);
   }
 
-//функция которая возвращает массив сохранненых карточек
-  function getSavedMovies() {
-      mainApi.getSavedMovies()
-      .then((savedMovies) => {
-        console.log(savedMovies)
-        return savedMovies
-      })
-      .catch(handleError)
- 
-  }
-  
 //по клику на кнопку сохранить происходит запрос на сохранение или удаление карточки из списка сохраненных
   function handleSaveMovieButtonClick(movie) {
-    mainApi.saveMovie(movie)
-    .then(() => {
-      setSelectedMoviesCard(true); 
-    })
-    .catch(handleError)  
-  if (selectedMoviesCard === true) {
-    mainApi.removeMovie(movie.id)
-    .then(() => {
-      setSelectedMoviesCard(false);
+    const isSaved = savedMovies.some(m => m.movieId === movie.movieId);
+    // const movie_id_to_delete = savedMovies.find(m => {
+    //   if (m.movieId === movie.movieId) {
+    //     return movie._id
+    //   }
+    // })
+    console.log("issaved ", isSaved)
+    // console.log("m.movieId ", m.movieId)
+    console.log("movie.movieId ", movie.id)
+    
+    if (!isSaved) {
+      mainApi.saveMovie(movie)
+      .then((newMovie) => {
+        setSavedMovies([...savedMovies, newMovie])
+        // setMoviesToShow((state) => state.map((m) => m.movieId !== movie.movieId ? m : newMovie))
+        console.log('newMovie',newMovie)
+        console.log('afterAdd',savedMovies)
+        console.log("movie._id ", movie._id)
+      })
+      .catch(handleError) 
+    } else {
+      // mainApi.get_id(movie.movieID)
+      const movie_to_delete = savedMovies.find((m) => (m.movieId === movie.movieId))
+      mainApi.removeMovie(movie_to_delete._id)
+      .then((deletedMovie) => {
+        console.log('movie to delete',deletedMovie)
+        // setSavedMovies((state) => state.filter((m) => ((m._id !== movie._id)) || (m._id !== movie_to_delete._id)));
+        // setSavedMovies((state) => state.filter((m) => (m._id !== movie._id)));
+        setSavedMovies((state) => state.filter((m) => (m._id !== movie_to_delete._id)));
+         console.log('afterDelete',savedMovies)
+      })
+        .catch(handleError)
+    }
+    
+     
+  // if (selectedMoviesCard === true) {
+  //   mainApi.removeMovie(movie.id)
+  //   .then(() => {
+  //     // setSelectedMoviesCard(false);
       
-    })
-    .catch(handleError)
-  }
+  //   })
+  //   .catch(handleError)
+  // }
   
   }
 
 
-//   function handleLogin({email, password}) {
-//     auth.authorize(email, password)
-//     .then(data => {
-//         const {token} = data; 
-//         //localStorage.setItem('token', token);
-//         setLoggedIn(true);
-//         setEmail(email);
-//     })
-//     .catch(handleError)
-// }
+  function handleLogin({email, password}) {
+    auth.authorize(email, password)
+    .then(data => {
+        const {token} = data; 
+        localStorage.setItem('token', token);
+        setLoggedIn(true);
+        // setEmail(email);
+    })
+    .catch(handleError)
+}
 
-// function handleLogout() {
-//     setEmail('');
-//     setLoggedIn(false);
-//     localStorage.removeItem('token');
-// }
+function handleLogout() {
+    // setEmail('');
+    setLoggedIn(false);
+    localStorage.removeItem('token');
+}
 
-// function handleRegister({userName, email, password}) {
-//     auth.register(userName, email, password)
-//     .then(() => {
-        
-//     })
-//     .catch(handleError);
-// }
+function handleRegister({userName, email, password}) {
+    auth.register(userName, email, password)
+    .then((res) => {
+        console.log(res)
+    })
+    .catch(handleError);
+}
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -238,22 +250,22 @@ function handleLoadMoreButtonClick() {
           <Route exact path="/">
             <Main/>
           </Route>
-          <Route path="/movies">
+          {/* <Route path="/movies">
             <Movies onMovieSearch={handleSearchSubmit} onSearchInput={handleMovieInput} movies={moviesToShow} notFoundText={searchError} isLoading={isLoading} onSaveMovieButtonClick={handleSaveMovieButtonClick} addButton={addLoadMoreButton} selectedMoviesCard={selectedMoviesCard} onHadleLoadMoreButtonClick={handleLoadMoreButtonClick}/>
           </Route>
           <Route path="/saved-movies">
             <SavedMovies movies={getSavedMovies} notFoundText={searchError} isLoading={isLoading} onSaveMovieButtonClick={handleSaveMovieButtonClick} addButton={addLoadMoreButton}/>
-          </Route>
-          {/* <ProtectedRoute path="/movies" loggedIn={loggedIn} component={Movies} onMovieSearch={handleSearchSubmit} onSearchInput={handleMovieInput} movies={moviesToShow} notFoundText={searchError} isLoading={isLoading} onSaveMovieButtonClick={handleSaveMovieButtonClick} addButton={addLoadMoreButton} selectedMoviesCard={selectedMoviesCard}/> */}
-          {/* <ProtectedRoute path="/saved-movies" loggedIn={loggedIn} component={SavedMovies} movies={getSavedMovies} notFoundText={searchError} isLoading={isLoading} onSaveMovieButtonClick={handleSaveMovieButtonClick} addButton={addLoadMoreButton}/> */}
+          </Route> */}
+          <ProtectedRoute path="/movies" loggedIn={loggedIn} component={Movies} savedMovies={savedMovies} onMovieSearch={handleSearchSubmit} onSearchInput={handleMovieInput} movies={moviesToShow} notFoundText={searchError} isLoading={isLoading} onSaveMovieButtonClick={handleSaveMovieButtonClick} addButton={addLoadMoreButton} savedMovies={savedMovies} onHadleLoadMoreButtonClick={handleLoadMoreButtonClick}/>
+          <ProtectedRoute path="/saved-movies" loggedIn={loggedIn} component={SavedMovies} movies={savedMovies} savedMovies={savedMovies} notFoundText={searchError} isLoading={isLoading} onSaveMovieButtonClick={handleSaveMovieButtonClick} addButton={addLoadMoreButton} onHadleLoadMoreButtonClick={handleLoadMoreButtonClick}/>
           <Route path="/profile">
             <Profile/>
           </Route>
           <Route path="/signin">
-            {/* <Login handleLogin={handleLogin}/> */}
+            <Login handleLogin={handleLogin}/>
           </Route>
           <Route path="/signup">
-            {/* <Register handleRegister={handleRegister}/> */}
+            <Register handleRegister={handleRegister}/>
           </Route>
           <Route path="*">
             <NotFoundError />

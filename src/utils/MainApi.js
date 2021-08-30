@@ -42,7 +42,7 @@ class Api {
             }
         }).then(this._getResponseData)
     }
-
+    
     saveMovie(data) {
         return fetch(`${this._adress}/movies`, {
             method: 'POST',
@@ -60,7 +60,8 @@ class Api {
                 trailer: data.trailer, 
                 nameRU: data.nameRU, 
                 nameEN:  data.nameEN,
-                thumbnail: data.thumbnail 
+                thumbnail: data.thumbnail,
+                movieId: data.id 
             })
         })
         .then(this._getResponseData)
@@ -77,6 +78,6 @@ class Api {
     }
 }
 
-const mainApi = new Api({adress: 'https://api.es.sviridova.nomoredomains.monster', token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTI2MDFjZmMxYmQ3OTY2MDhlMTdjOTgiLCJpYXQiOjE2Mjk4ODA4ODcsImV4cCI6MTYzMDQ4NTY4N30._WYfhpgsSZWal6hu2XtFMj6LcZfHDw29tImjRaIuZJ0'});
+const mainApi = new Api({adress: 'http://localhost:3000', token: localStorage.getItem('token')});
 
 export default mainApi

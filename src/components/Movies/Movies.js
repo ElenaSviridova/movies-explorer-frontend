@@ -7,11 +7,7 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 
 
-function Movies({onMovieSearch, onSearchInput, movies, notFoundText, isLoading, addButton, onSaveMovieButtonClick, selectedMoviesCard, onHadleLoadMoreButtonClick}) {
- 
-  const moviesCardButtonClassName = (
-    `movies-card__button ${selectedMoviesCard ? 'red-button' : ''}`
-  )
+function Movies({onMovieSearch, onSearchInput, movies, notFoundText, isLoading, addButton, onSaveMovieButtonClick, onHadleLoadMoreButtonClick, savedMovies}) {
   
   return (
     <>
@@ -19,7 +15,7 @@ function Movies({onMovieSearch, onSearchInput, movies, notFoundText, isLoading, 
         <Header navClassName="navigation" navProfile="navigation__profile" headerReg="unvisible"/>
         <SearchForm onMovieSearch={onMovieSearch} onSearchInput={onSearchInput} />
         <FilterCheckbox/>
-        <MoviesCardList movies={movies} notFoundText={notFoundText} isLoading={isLoading} addButton={addButton} onSaveMovieButtonClick={onSaveMovieButtonClick} moviesCardButtonClassName={moviesCardButtonClassName} onHadleLoadMoreButtonClick={onHadleLoadMoreButtonClick}/>
+        <MoviesCardList movies={movies} savedMovies={savedMovies} notFoundText={notFoundText} isLoading={isLoading} addButton={addButton} onSaveMovieButtonClick={onSaveMovieButtonClick} onHadleLoadMoreButtonClick={onHadleLoadMoreButtonClick} listTypeMovies= {true}/>
         
         {/* <Preloader/>
         <MoviesCard/> */}

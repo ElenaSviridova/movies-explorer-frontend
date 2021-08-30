@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 // import imageCardThirdPath from '../../images/movies-card-third.png';
 import Preloader from '../Preloader/Preloader';
 
-function MoviesCardList({movies, notFoundText, isLoading, addButton, onSaveMovieButtonClick, moviesCardButtonClassName, onHadleLoadMoreButtonClick}) {
+function MoviesCardList({movies, savedMovies, notFoundText, isLoading, addButton, onSaveMovieButtonClick, onHadleLoadMoreButtonClick, listTypeMovies}) {
 
 
 
@@ -30,7 +30,7 @@ function handleLoadMoreButtonClick() {
           {isLoading && <Preloader />}
             <p className="movies-card__not-found">{notFoundText}</p>
             <div className="movies-card-list">
-              {movies.map((movie) => (<MoviesCard key={movie.id} movie={movie} onSaveMovieButtonClick={onSaveMovieButtonClick} moviesCardButtonClassName={moviesCardButtonClassName}/>))}
+              {movies.map((movie) => (<MoviesCard key={movie.id} movie={movie} onSaveMovieButtonClick={onSaveMovieButtonClick} savedMovies={savedMovies} listTypeMovies= {listTypeMovies}/>))}
             </div>
             <button className={moviesCardListButtonClassName} onClick={handleLoadMoreButtonClick}>Ещё</button>
         </section>

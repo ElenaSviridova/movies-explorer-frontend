@@ -1,15 +1,23 @@
 import './MoviesCard.css';
-import React, { useState, useEffect } from 'react';
+// import React, { useState, useEffect } from 'react';
 
-function MoviesCard({movie, onSaveMovieButtonClick, moviesCardButtonClassName}) {
-
-
-function handleSaveClick(e) {
-  e.preventDefault();
-  onSaveMovieButtonClick(movie);
-}
-
-const adress = 'https://api.nomoreparties.co';
+function MoviesCard({movie, savedMovies, onSaveMovieButtonClick, listTypeMovies}) {
+  
+  const isSaved =  savedMovies.some(m => m.movieId === movie.movieId);
+    
+  
+  // moviesCardButtonClassName='movies-card__button save-button'
+  const moviesCardButtonClassName = 
+  (
+    `movies-card__button ${isSaved ? 'red-button' : ''}`
+  )
+  console.log("is saved",isSaved)
+  function handleSaveClick(e) {
+    e.preventDefault();
+    onSaveMovieButtonClick(movie);
+  }
+ 
+  // const adress = 'https://api.nomoreparties.co';
 
   return (
             <article className="movies-card">
@@ -18,8 +26,8 @@ const adress = 'https://api.nomoreparties.co';
                 <span className="movies-card__time">{movie.duration} минут</span>
               </div>
                 
-                <img className="movies-card__image" src={adress+movie.image.url} alt="фото фильма"/>
-                <button type="button" className={moviesCardButtonClassName} onClick={handleSaveClick}>Сохранить
+                <img className="movies-card__image" src={movie.image} alt="фото фильма"/>
+                <button type="button" className={listTypeMovies ? moviesCardButtonClassName : 'movies-card__button save-button'} onClick={handleSaveClick}>Сохранить
                 </button>
             </article>
   );

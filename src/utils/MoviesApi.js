@@ -1,5 +1,5 @@
 export class Api {
-    constructor({adress, token}) {
+    constructor({adress}) {
         this._adress = adress;
         // this._token = token;
     }

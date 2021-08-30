@@ -24,6 +24,7 @@ function Register({handleRegister}) {
     function handleSubmit(e) {
         e.preventDefault();
         const {userName, email, password } = data;
+        console.log(userName, email, password)
         handleRegister({userName, email, password})
     }
 
