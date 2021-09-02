@@ -67,10 +67,6 @@
     box-shadow: 0px 5px 10px 5px #E8E8E8;
 }
 
-.login__input::placeholder {
-    color: black;
-}
-
 .login__label {
     font-size: 10px;
     font-weight: 400;
@@ -91,6 +87,10 @@
     font-weight: 500;
     line-height: 17px;
     font-family: 'Inter', 'Arial', sans-serif; 
+}
+
+.login__button:disabled {
+    opacity: 0.5;
 }
 
 .login__enter {
@@ -151,7 +151,7 @@
 }
 
 .login__error {
-    display:none;
+    /* display:none; */
     color: red;
     font-family: Inter;
     font-style: normal;

@@ -86,7 +86,7 @@
     }
     
     .filter-checkbox__button:checked + .filter-checkbox__slider-round {
-      background-color: #ccc;
+      background-color: #ccc ;
     }
     
     .filter-checkbox__button:focus + .filter-checkbox__slider-round {

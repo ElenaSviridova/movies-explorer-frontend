@@ -15,7 +15,7 @@ function Header({navClassName, navProfile, headerReg}) {
               </NavLink>
               <Navigation navClassName={navClassName} navProfileClassName={navProfile}/>
               <div className={headerReg}>
-                <NavLink className="header__register" exact to="/register">Регистрация</NavLink>
+                <NavLink className="header__register" exact to="/signup">Регистрация</NavLink>
                 <NavLink exact to="/signin"  className='header__button'>Войти</NavLink>
               </div>
         </header> 

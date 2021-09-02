@@ -14,7 +14,7 @@ export class Api {
     getMovies() {
         return  fetch(`${this._adress}/`,{
             headers: {
-                // authorization: this._token
+                
             },
         }).then(this._getResponseData)
     }

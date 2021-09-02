@@ -3,6 +3,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: inherit;
 }
 
 @media all and (max-width: 820px) {

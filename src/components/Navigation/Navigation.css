@@ -35,13 +35,27 @@
     font-weight: 400;
 }
 
-.navigation__link:hover {
+.navigation__li:link {
+  font-weight: 500;
+  color: chartreuse;
+}
+
+.navigation__li:hover {
     opacity: 0.6;
 }
 
-.bold {
-    font-weight: 500;
+.navigation__link:focus {
+  font-weight: 500;
+  color: rgb(0, 17, 255);
 }
+.navigation__link:active {
+  font-weight: 500;
+  color: aqua;
+}
+
+/* .bold {
+    font-weight: 500;
+} */
 
 .navigation__right-side {
     margin: 21px 0;
@@ -77,8 +91,6 @@
 .navigation__button:hover {
     opacity: 0.6;
 }
-
-
 
 .navigation__burger-menu {
     display:none;

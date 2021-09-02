@@ -4,14 +4,11 @@ import '../../styles/unvisible.css';
 import '../../styles/navigation-profile.css';
 import { NavLink } from 'react-router-dom';
 
-
-// import accountIconPath from '../../images/account-icon.svg';
-
 function Navigation({navClassName, navProfileClassName}) {
     return (
             <div className={navClassName}>
                 <ul className="navigation__menu">
-                        <li className="navigation__li"><NavLink className="navigation__link bold" exact to="/movies">Фильмы</NavLink></li>
+                        <li className="navigation__li"><NavLink className="navigation__link" exact to="/movies">Фильмы</NavLink></li>
                         <li className="navigation__li"><NavLink className="navigation__link" exact to="/saved-movies">Сохраненные фильмы</NavLink></li>
                 </ul> 
                 <div className={navProfileClassName}>

@@ -1,4 +1,4 @@
-class Api {
+export default class Api {
     constructor({adress, token}) {
         this._adress = adress;
         this._token = token;
@@ -35,6 +35,7 @@ class Api {
     }
 
     getSavedMovies() {
+        console.log(this._token)
         return  fetch(`${this._adress}/movies`,{
             headers: {
                 authorization: `Bearer ${this._token}`,
@@ -78,6 +79,6 @@ class Api {
     }
 }
 
-const mainApi = new Api({adress: 'http://localhost:3000', token: localStorage.getItem('token')});
 
-export default mainApi
+
+// export default mainApi

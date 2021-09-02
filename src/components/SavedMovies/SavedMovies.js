@@ -5,16 +5,14 @@ import Footer from '../Footer/Footer';
 import SearchForm from '../SearchForm/SearchForm';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SavedMovies({movies, savedMovies, notFoundText, isLoading, addButton, onSaveMovieButtonClick}) {
+function SavedMovies({movies, savedMovies, notFoundText, isLoading, addButton, onSaveMovieButtonClick, onSearchInput, onMovieSearch, onCheckBoxClick, checkbox}) {
   
-
-
   return (
             <section className="saved-movies">
                 <Header navClassName="navigation" navProfile="navigation__profile" headerReg="unvisible"/>
-                <SearchForm/>
-                <FilterCheckbox/>
-                <MoviesCardList movies={movies} savedMovies = {savedMovies} notFoundText={notFoundText} isLoading={isLoading} addButton={addButton} onSaveMovieButtonClick={onSaveMovieButtonClick} listTypeMovies= {false} />
+                <SearchForm onMovieSearch={onMovieSearch} onSearchInput={onSearchInput}/>
+                <FilterCheckbox onCheckBoxClick={onCheckBoxClick} checkbox={checkbox}/>
+                <MoviesCardList movies={movies} savedMovies = {savedMovies} notFoundText={notFoundText} isLoading={isLoading} addButton={addButton} onSaveMovieButtonClick={onSaveMovieButtonClick} listTypeMovies= {false}/>
                 <Footer/>
             </section>
   );
