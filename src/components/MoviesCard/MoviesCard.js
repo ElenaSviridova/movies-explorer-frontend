@@ -2,12 +2,16 @@ import './MoviesCard.css';
 // import React, { useState, useEffect } from 'react';
 
 function MoviesCard({movie, savedMovies, onSaveMovieButtonClick, listTypeMovies}) {
+
+ 
   
   const isSaved =  savedMovies.some(m => m.movieId === movie.movieId);
     
   const moviesCardButtonClassName = (
     `movies-card__button ${isSaved ? 'red-button' : ''}`
   )
+
+
   function handleSaveClick(e) {
     e.preventDefault();
     onSaveMovieButtonClick(movie);

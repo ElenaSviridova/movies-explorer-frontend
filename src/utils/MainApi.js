@@ -35,7 +35,6 @@ export default class Api {
     }
 
     getSavedMovies() {
-        console.log(this._token)
         return  fetch(`${this._adress}/movies`,{
             headers: {
                 authorization: `Bearer ${this._token}`,

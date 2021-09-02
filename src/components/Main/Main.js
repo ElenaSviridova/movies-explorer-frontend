@@ -7,10 +7,10 @@ import Techs from '../Techs/Techs';
 import AboutMe from '../AboutMe/AboutMe';
 import Portfolio from '../Portfolio/Porfolio';
 import Footer from '../Footer/Footer';
-import { CurrentUserContext } from '../../contexts/currentUserContext';
+// import { CurrentUserContext } from '../../contexts/currentUserContext';
 
-function Main({loggedIn}) {
-    const currentUser = React.useContext(CurrentUserContext);
+function Main({loggedIn, onSavedMoviesLinkClick, onMoviesLinkClick}) {
+    // const currentUser = React.useContext(CurrentUserContext);
 
     const navClassName = loggedIn ? "navigation" : "unvisible";
     const navProfile = loggedIn ? "navigation__profile" : "unvisible";
@@ -19,7 +19,7 @@ function Main({loggedIn}) {
     return (
         <>
             <main className='main'>
-                <Header navClassName={navClassName} navProfile={navProfile} headerReg={headerReg}/>
+                <Header navClassName={navClassName} navProfile={navProfile} headerReg={headerReg} onSavedMoviesLinkClick={onSavedMoviesLinkClick} onMoviesLinkClick={onMoviesLinkClick}/>
                 <Promo />
                 <AboutProject/>
                 <Techs/>

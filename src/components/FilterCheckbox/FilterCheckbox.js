@@ -1,14 +1,11 @@
 import './FilterCheckbox.css';
 import React from 'react';
 
-
 function FilterCheckbox({onCheckBoxClick, checkbox}) {
   
   function handleCheckBoxClick(event) {
-  onCheckBoxClick(event);
-  console.log(checkbox.checked)
+    onCheckBoxClick(event);
   }
-// onClick={handleCheckBoxClick} checked={checkbox.checked}
     return (
       <section className="filter-checkbox">
             <label htmlFor="checkboxButton" className="filter-checkbox__label">

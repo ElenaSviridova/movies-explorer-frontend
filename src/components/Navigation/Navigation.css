@@ -28,6 +28,8 @@
 
 .navigation__link {
     text-decoration: none;
+    border: none;
+    background-color:inherit;
     color: black;
     font-size: 13px;
     line-height: 18px;
@@ -44,13 +46,8 @@
     opacity: 0.6;
 }
 
-.navigation__link:focus {
-  font-weight: 500;
-  color: rgb(0, 17, 255);
-}
 .navigation__link:active {
   font-weight: 500;
-  color: aqua;
 }
 
 /* .bold {
@@ -173,6 +170,8 @@
   }
 
   .navigation__menu-item {
+    border: none;
+    background-color:inherit;
     display: block;
     margin: 0 0 28px;
     color: #333;

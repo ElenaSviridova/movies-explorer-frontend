@@ -7,7 +7,7 @@ import { useFormWithValidation } from '../Validator';
 import '../../styles/login.css';
 import '../../styles/unvisible.css';
 
-function Profile({handleAccountClick, onEditClick}) {
+function Profile({handleAccountClick, onEditClick, onSavedMoviesLinkClick, onMoviesLinkClick}) {
 
     const {setValues, values, errors, isValid, handleChange, resetForm} = useFormWithValidation();
 
@@ -41,7 +41,7 @@ function Profile({handleAccountClick, onEditClick}) {
 
     return (
         <>
-        <Header navClassName="navigation" navProfile="navigation__profile" headerReg="unvisible"/>
+        <Header navClassName="navigation" navProfile="navigation__profile" headerReg="unvisible" onSavedMoviesLinkClick={onSavedMoviesLinkClick} onMoviesLinkClick={onMoviesLinkClick}/>
         <div className="profile">
             <h1 className="profile__title">Привет, {currentUser.name}!</h1>
             <form className="profile__container" onSubmit={handleEditClick}>

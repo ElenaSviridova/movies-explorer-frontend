@@ -36,7 +36,6 @@ function App() {
   const handleError = (error) => console.error(error); 
   const mainApi = new Api({adress: 'http://localhost:3000', token: localStorage.getItem('token')});
 
-  
   useEffect(() => {
     checkToken()
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -63,7 +62,6 @@ useEffect(() => {
 
 
 const filteredMovies = movies.filter(movie => filterMovie(movie, movieSearchQuery));
-console.log("filteredMovies xxx", filteredMovies)
 
 //поиск карточек
 useEffect(() => {
@@ -83,6 +81,7 @@ useEffect(() => {
 
 //отрисовка сохраненных карточек
 useEffect(() => {
+
   if(loggedIn) {
     const filteredSavedMovies = savedMovies.filter(movie => filterMovie(movie, movieSearchQuery));
     setSavedFilteredMovies(filteredSavedMovies);
@@ -95,7 +94,6 @@ useEffect(() => {
 useEffect(() => {
   if(loggedIn) {
     const filteredSavedMovies = savedMovies.filter(movie => filterMovie(movie, movieSearchQuery));
-
     checkForEmpty(filteredSavedMovies);
     setSavedFilteredMovies(filteredSavedMovies);
     // localStorage.setItem('filteredMovies',JSON.stringify(filteredMovies));
@@ -137,7 +135,6 @@ function checkForEmpty(movies) {
 function changeMoviesCardList(filteredMovies) {
   if (filteredMovies.length < moviesCountIndex) {
     setAddLoadMoreButton(false);
-    console.log(filteredMovies.length, moviesCountIndex)
   } 
   else {
     setAddLoadMoreButton(true);
@@ -178,12 +175,15 @@ function handleSearchSubmit(e) {
        .then((data) => {
          setIsLoading(false);
          setMovies(data)
+         console.log('country',data)
          // eslint-disable-next-line array-callback-return
          data.map((m) => {
            m.thumbnail = 'https://api.nomoreparties.co'+ m.image.formats.thumbnail.url;
            m.image ='https://api.nomoreparties.co' + m.image.url;
            m.trailer = m.trailerLink;
-           m.movieId = m.id
+           m.movieId = m.id;
+           m.nameEN = m.nameEN ? m.nameEN : m.nameRU;
+           m.country = m.country ? m.country : 'нет данных';
           });
          setSearch(true); 
 
@@ -210,25 +210,22 @@ function handleMovieInput(e) {
 
 //по клику на кнопку сохранить происходит запрос на сохранение или удаление карточки из списка сохраненных
 function handleSaveMovieButtonClick(movie) {
-    const isSaved = savedMovies.some(m => m.movieId === movie.movieId);
+  const isSaved = savedMovies.some(m => m.movieId === movie.movieId);
     if (!isSaved) {
       mainApi.saveMovie(movie)
       .then((newMovie) => {
-        setSavedMovies([...savedMovies, newMovie])
-        // setMovieSearchQuery('');
+        setSavedMovies([...savedMovies, newMovie]);
       })
       .catch(handleError) 
     } else {
       const movie_to_delete = savedMovies.find((m) => (m.movieId === movie.movieId))
       mainApi.removeMovie(movie_to_delete._id)
-      .then((deletedMovie) => {
-        console.log('movie to delete',deletedMovie)
+      .then(() => {
         setSavedMovies((state) => state.filter((m) => (m._id !== movie_to_delete._id)));
         setSavedFilteredMovies((state) => state.filter((m) => (m._id !== movie_to_delete._id)));
       })
         .catch(handleError)
-    }
-  
+    }  
 }
 
 function handleLogin({email, password}) {
@@ -243,31 +240,43 @@ function handleLogin({email, password}) {
 }
 
 function handleLogout() {
-    setCurrentUser({});
-    setLoggedIn(false);
-    localStorage.removeItem('token');
-    setSavedMovies({});
-    //remove movies from local storage and memory
-    history.push('/');
+  setCurrentUser({});
+  setLoggedIn(false);
+  localStorage.removeItem('token');
+  setSavedMovies({});
+  //remove movies from local storage and memory
+  history.push('/');
 }
 
 function handleRegister({userName, email, password}) {
-    auth.register(userName, email, password)
-    .then(() => {
-      history.push('/signin');
-    })
-    .catch(handleError);
+  auth.register(userName, email, password)
+  .then(() => {
+    history.push('/signin');
+  })
+  .catch(handleError);
 }
 
 function handleEditClick({name, email}) {
-    mainApi.changeProfileInfo(name, email)
-    .then((res) => {
-      setCurrentUser({name: res.name, email: res.email})
-    })
+  mainApi.changeProfileInfo(name, email)
+  .then((res) => {
+    setCurrentUser({name: res.name, email: res.email})
+  })
 }
 
 function handleCheckBoxClick(event) {
   setCheckbox({ checked: event.target.checked })
+}
+
+function handleSavedMoviesLinkClick() {
+  setMovieSearchQuery('');
+  setSearchError('');
+  setCheckbox({checked: true});
+}
+
+function handleMoviesLinkClick() {
+  setMovieSearchQuery('');
+  setSearchError('');
+  setCheckbox({checked: true});
 }
 
 return (
@@ -275,11 +284,43 @@ return (
     <div className="page">
           <Switch>
           <Route exact path="/">
-            <Main loggedIn={loggedIn}/>
+            <Main loggedIn={loggedIn} 
+              onSavedMoviesLinkClick={handleSavedMoviesLinkClick}
+              onMoviesLinkClick={handleMoviesLinkClick}/>
           </Route>
-          <ProtectedRoute path="/movies" loggedIn={loggedIn} component={Movies} movies={moviesToShow} savedMovies={savedMovies} onMovieSearch={handleSearchSubmit} onSearchInput={handleMovieInput}  notFoundText={searchError} isLoading={isLoading} onSaveMovieButtonClick={handleSaveMovieButtonClick} addButton={addLoadMoreButton} onHadleLoadMoreButtonClick={handleLoadMoreButtonClick} onCheckBoxClick={handleCheckBoxClick} checkbox={checkbox}/>
-          <ProtectedRoute path="/saved-movies" loggedIn={loggedIn} component={SavedMovies} movies={savedFilteredMovies ? savedFilteredMovies : savedMovies} savedMovies={savedMovies}  notFoundText={searchError} isLoading={isLoading} onSaveMovieButtonClick={handleSaveMovieButtonClick} onMovieSearch={handleSearchSubmitSavedMovies} onSearchInput={handleMovieInput} onCheckBoxClick={handleCheckBoxClick} checkbox={checkbox}/>
-          <ProtectedRoute path="/profile" loggedIn={loggedIn} component={Profile} handleAccountClick={handleLogout} onEditClick={handleEditClick} />
+          <ProtectedRoute path="/movies" loggedIn={loggedIn}
+            component={Movies}
+            movies={moviesToShow}
+            savedMovies={savedMovies} 
+            onMovieSearch={handleSearchSubmit} 
+            onSearchInput={handleMovieInput}  
+            notFoundText={searchError} 
+            isLoading={isLoading} 
+            onSaveMovieButtonClick={handleSaveMovieButtonClick} 
+            addButton={addLoadMoreButton} 
+            onHadleLoadMoreButtonClick={handleLoadMoreButtonClick} 
+            onCheckBoxClick={handleCheckBoxClick} 
+            checkbox={checkbox}
+            onSavedMoviesLinkClick={handleSavedMoviesLinkClick}
+            onMoviesLinkClick={handleMoviesLinkClick}/>
+          <ProtectedRoute path="/saved-movies" loggedIn={loggedIn} 
+            component={SavedMovies} 
+            movies={savedFilteredMovies ? savedFilteredMovies : savedMovies} 
+            savedMovies={savedMovies}  notFoundText={searchError} 
+            isLoading={isLoading} 
+            onSaveMovieButtonClick={handleSaveMovieButtonClick} 
+            onMovieSearch={handleSearchSubmitSavedMovies} 
+            onSearchInput={handleMovieInput} 
+            onCheckBoxClick={handleCheckBoxClick} 
+            checkbox={checkbox}
+            onSavedMoviesLinkClick={handleSavedMoviesLinkClick}
+            onMoviesLinkClick={handleMoviesLinkClick}/>
+          <ProtectedRoute path="/profile" loggedIn={loggedIn} 
+            component={Profile} 
+            handleAccountClick={handleLogout} 
+            onEditClick={handleEditClick}
+            onSavedMoviesLinkClick={handleSavedMoviesLinkClick}
+            onMoviesLinkClick={handleMoviesLinkClick} />
           <Route path="/signin">
             <Login handleLogin={handleLogin}/>
           </Route>
