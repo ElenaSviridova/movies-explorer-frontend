@@ -61,19 +61,47 @@ useEffect(() => {
 // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [loggedIn])
 
-//отрисовка карточек
+
+const filteredMovies = movies.filter(movie => filterMovie(movie, movieSearchQuery));
+console.log("filteredMovies xxx", filteredMovies)
+
+//поиск карточек
 useEffect(() => {
   if(search) {
-    const filteredMovies = movies.filter(movie => filterMovie(movie, movieSearchQuery));
-    
-    checkSearch(filteredMovies);
+    checkForEmpty(filteredMovies);
     changeMoviesCardList(filteredMovies);
     // localStorage.setItem('filteredMovies',JSON.stringify(filteredMovies));
   } 
-   
 // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [search, moviesCountIndex, savedMovies, checkbox])
+}, [search, checkbox])
 
+//отрисовка карточек
+useEffect(() => {
+  changeMoviesCardList(filteredMovies);
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, [moviesCountIndex, savedMovies])
+
+//отрисовка сохраненных карточек
+useEffect(() => {
+  if(loggedIn) {
+    const filteredSavedMovies = savedMovies.filter(movie => filterMovie(movie, movieSearchQuery));
+    setSavedFilteredMovies(filteredSavedMovies);
+    // localStorage.setItem('filteredMovies',JSON.stringify(filteredMovies));
+  }
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, [savedMovies])
+
+//отрисовка сохраненных карточек
+useEffect(() => {
+  if(loggedIn) {
+    const filteredSavedMovies = savedMovies.filter(movie => filterMovie(movie, movieSearchQuery));
+
+    checkForEmpty(filteredSavedMovies);
+    setSavedFilteredMovies(filteredSavedMovies);
+    // localStorage.setItem('filteredMovies',JSON.stringify(filteredMovies));
+  }
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, [checkbox])
 
 function checkToken() {
   const token = localStorage.getItem('token')
@@ -92,15 +120,16 @@ function filterMovie(movie, query) {
   const regexp = new RegExp(query, "gi");
   if(checkbox.checked === false) {
     return (movie.nameRU.match(regexp)&&movie.duration<40);
-    // return (movie.duration<40);
   } else {
     return movie.nameRU.match(regexp);
   }
 }
 
-function checkSearch(movies) {
-  if ((search) && (movies.length === 0)) {
+function checkForEmpty(movies) {
+  if (movies.length === 0) {
      setSearchError('Ничего не найдено');
+  } else {
+    setSearchError('');
   }
 }
 
@@ -166,24 +195,11 @@ function handleSearchSubmit(e) {
        });
 }
 
-
-//отрисовка сохраненных карточек
-useEffect(() => {
-  if(loggedIn) {
-    const filteredSavedMovies = savedMovies.filter(movie => filterMovie(movie, movieSearchQuery));
-    checkSearch(filteredSavedMovies);
-    setSavedFilteredMovies(filteredSavedMovies);
-    // localStorage.setItem('filteredMovies',JSON.stringify(filteredMovies));
-  }
-// eslint-disable-next-line react-hooks/exhaustive-deps
-}, [savedMovies, checkbox])
-
 function handleSearchSubmitSavedMovies() {
   setSearchError('');
-  setSearch(true);
   setFistMoviesCountIndex();
   const filteredSavedMovies = savedMovies.filter(movie => filterMovie(movie, movieSearchQuery));
-  checkSearch(filteredSavedMovies);
+  checkForEmpty(filteredSavedMovies);
   setSavedFilteredMovies(filteredSavedMovies);
 }
 
@@ -194,14 +210,12 @@ function handleMovieInput(e) {
 
 //по клику на кнопку сохранить происходит запрос на сохранение или удаление карточки из списка сохраненных
 function handleSaveMovieButtonClick(movie) {
-
     const isSaved = savedMovies.some(m => m.movieId === movie.movieId);
-    
     if (!isSaved) {
       mainApi.saveMovie(movie)
       .then((newMovie) => {
         setSavedMovies([...savedMovies, newMovie])
-        setMovieSearchQuery('');
+        // setMovieSearchQuery('');
       })
       .catch(handleError) 
     } else {

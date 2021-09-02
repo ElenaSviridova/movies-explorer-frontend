@@ -42,7 +42,7 @@ function Login({handleLogin}) {
                 <input required id="email" className={setInputClassName(errors.email)} type="email" name="email" placeholder="pochta@yandex.ru" value={values.email} onChange={handleChange}></input>
                 <span className={setErrorClassName(errors.email)}>{isValid ? '' : errors.email}</span>
                 <label className="login__label" htmlFor="password">Пароль</label>
-                <input required id="password" className={setInputClassName(errors.password)} type="password" name="password" value={values.password} onChange={handleChange}></input> 
+                <input required id="password" className={setInputClassName(errors.password)} type="password" name="password" value={values.password} onChange={handleChange} minLength='4'></input> 
                 <span className={setErrorClassName(errors.password)}>{isValid ? '' : errors.password}</span>
                 </div>
                 <div className="login__enter">
