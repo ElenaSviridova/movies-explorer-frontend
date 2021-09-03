@@ -1,7 +1,8 @@
+import { FILMS_URL } from '../config';
+
 export class Api {
     constructor({adress}) {
         this._adress = adress;
-        // this._token = token;
     }
 
     _getResponseData(response) {
@@ -21,6 +22,6 @@ export class Api {
 
 }
 
-const moviesApi = new Api({adress: 'https://api.nomoreparties.co/beatfilm-movies'});
+const moviesApi = new Api({adress: FILMS_URL});
 
 export default moviesApi

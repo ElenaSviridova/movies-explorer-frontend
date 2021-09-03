@@ -9,14 +9,13 @@ import { useFormWithValidation } from '../Validator';
 
 function Register({handleRegister}) {
 
-    const {values, errors, isValid, handleChange, resetForm} = useFormWithValidation();
+    const {values, errors, isValid, handleChange} = useFormWithValidation();
 
     function handleSubmit(e) {
         e.preventDefault();
         const {userName, email, password } = values;
         console.log(userName, email, password)
         handleRegister({userName, email, password});
-        // resetForm();
     }
 
     function setInputClassName(error) {
@@ -29,7 +28,9 @@ function Register({handleRegister}) {
 
     return (
         <div className="login">
-            <img src={logoBlueC} alt="Картинка логотипа" className="header__logo"/>
+            <NavLink exact to="/" className="header__link">
+                <img src={logoBlueC} alt="Картинка логотипа" className="header__logo"/>
+            </NavLink>
             <h1 className="login__title">Добро пожаловать!</h1>
             <form className="login__container" onSubmit={handleSubmit}>
                 <div className="login__enter">

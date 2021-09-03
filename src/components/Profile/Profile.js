@@ -9,7 +9,7 @@ import '../../styles/unvisible.css';
 
 function Profile({handleAccountClick, onEditClick, onSavedMoviesLinkClick, onMoviesLinkClick}) {
 
-    const {setValues, values, errors, isValid, handleChange, resetForm} = useFormWithValidation();
+    const {setValues, values, errors, isValid, handleChange} = useFormWithValidation();
 
     const currentUser = React.useContext(CurrentUserContext);
     useEffect(() => {
@@ -22,7 +22,7 @@ function Profile({handleAccountClick, onEditClick, onSavedMoviesLinkClick, onMov
 
 
     function activateButton() {
-        if ((values.userName === currentUser.name)||(values.email === currentUser.email)||!isValid) {
+        if (((values.userName === currentUser.name)&&(values.email === currentUser.email))||!isValid) {
             return true;
         } else  {
             return false;
@@ -32,6 +32,7 @@ function Profile({handleAccountClick, onEditClick, onSavedMoviesLinkClick, onMov
     function handleEditClick(e) {
         e.preventDefault();
         const { userName, email } = values;
+        console.log(userName)
         onEditClick({userName, email});
     }
 

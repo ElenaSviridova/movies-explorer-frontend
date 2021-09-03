@@ -57,6 +57,8 @@
     font-family: 'Inter', 'Arial', sans-serif;
     text-decoration: none;
     color: #3456F3;
+    border: none;
+    background-color: inherit;
 }
 
 .not-found-error__back-button:hover {

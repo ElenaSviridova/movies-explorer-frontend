@@ -46,13 +46,9 @@
     opacity: 0.6;
 }
 
-.navigation__link:active {
-  font-weight: 500;
-}
-
-/* .bold {
+.bold {
     font-weight: 500;
-} */
+}
 
 .navigation__right-side {
     margin: 21px 0;
@@ -112,6 +108,10 @@
     z-index: 2;
     margin: 12.5px 0;
   }
+
+  .navigation__menu-btn:hover {
+    opacity: 0.6;
+  }
    
   .navigation__menu-btn > span,
   .navigation__menu-btn > span::before,
@@ -151,6 +151,11 @@
         margin: 0;
         padding: 144px 0 48px;
     }
+}
+
+.navigation__menubox-link {
+  text-decoration: none;
+  color: #000;
 }
 
   .navigation__background {

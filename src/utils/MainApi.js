@@ -77,7 +77,3 @@ export default class Api {
         .then(this._getResponseData)  
     }
 }
-
-
-
-// export default mainApi

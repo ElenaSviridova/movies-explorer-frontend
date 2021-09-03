@@ -9,7 +9,7 @@ import { useFormWithValidation } from '../Validator';
 
 function Login({handleLogin}) {
 
-    const {values, errors, isValid, handleChange, resetForm} = useFormWithValidation();
+    const {values, errors, isValid, handleChange} = useFormWithValidation();
 
     function handleSubmit(e){
         e.preventDefault();

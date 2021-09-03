@@ -19,7 +19,7 @@ function handleLoadMoreButtonClick() {
           {isLoading && <Preloader />}
             <p className="movies-card__not-found">{notFoundText}</p>
             <div className="movies-card-list">
-              {movies.map((movie) => (<MoviesCard key={movie.movieId} movie={movie} onSaveMovieButtonClick={onSaveMovieButtonClick} savedMovies={savedMovies} listTypeMovies= {listTypeMovies}/>))}
+              {movies ? movies.map((movie) => (<MoviesCard key={movie.movieId} movie={movie} onSaveMovieButtonClick={onSaveMovieButtonClick} savedMovies={savedMovies} listTypeMovies= {listTypeMovies}/>)) :""}
             </div>
             <button className={moviesCardListButtonClassName} onClick={handleLoadMoreButtonClick}>Ещё</button>
         </section>
