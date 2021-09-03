@@ -1,6 +1,4 @@
-export const BASE_URL = 'http://localhost:3000';
-//https://api.es.sviridova.nomoredomains.monster
-
+import { BASE_URL } from "../config";
 const checkResponse = (response) => response.ok ? response.json() : Promise.reject(`Ошибка: ${response.status}`)
 
 export const register = (name, email, password) => {

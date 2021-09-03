@@ -34,11 +34,9 @@ function App() {
 
   const handleError = (error) => console.error(error); 
   const mainApi = new Api({adress: BASE_URL, token: localStorage.getItem('token')});
-  console.log('mts',moviesToShow)
 
   useEffect(() => {
     checkToken();
-    console.log('mts',moviesToShow)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -50,8 +48,6 @@ function App() {
             setCurrentUser(data)
             setLoggedIn(true);
             setMovies(JSON.parse(localStorage.getItem('filteredMovies')));
-            // displayMoviesAndButton(JSON.parse(localStorage.getItem('filteredMovies')));
-            //load saved movies from local storage
         })
         .catch(handleError)
     }
@@ -89,17 +85,12 @@ useEffect(() => {
 
 //отрисовка сохраненных карточек
 useEffect(() => {
-  // if(loggedIn) {
     setSavedFilteredMovies(filterData(savedMovies, checkbox.checked, movieSearchQuery));
-  // }
 // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [savedMovies])
 
 //отрисовка поиска фильмов
 useEffect(() => {
-  // console.log("use effect movies -> display movies and set local storage", movies)
-  // console.log("use effect movieSearchQuery -> display movies and set local storage", movieSearchQuery)
-  console.log('mmmovies', movies)
   if( movies.length !== 0 ) {
     checkForEmpty(filterData(movies, checkbox.checked, movieSearchQuery));
     displayMoviesAndButton(filterData(movies, checkbox.checked, movieSearchQuery));
@@ -225,7 +216,6 @@ function handleLogout() {
   localStorage.removeItem('token');
   setSavedMovies({});
   localStorage.removeItem('filteredMovies');
-  //remove movies from local storage and memory
   history.push('/');
 }
 
@@ -264,9 +254,6 @@ function handleMoviesLinkClick() {
   setMovieSearchQuery('');
   setSearchError('');
   setCheckbox({checked: true});
-  // setMovies('')
-
-  // setMovies(JSON.parse(localStorage.getItem('filteredMovies')));
 }
 
 return (
