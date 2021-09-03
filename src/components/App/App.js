@@ -115,7 +115,6 @@ function displayMoviesAndButton(filteredMovies) {
   else {
     setAddLoadMoreButton(true);
   }
-  console.log('in func',moviesCountIndex)
   setMoviesToShow(filteredMovies.slice(0, moviesCountIndex));
 }
 
