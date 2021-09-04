@@ -3,7 +3,6 @@ import '../../styles/landing-title.css';
 
 function AboutMe() {
     return (
-        <>
             <section className="about-me">
                 <h2 className="landing-title">Студент</h2>
                 <div className="about-me__about">
@@ -21,8 +20,6 @@ function AboutMe() {
                         <img className="about-me__photo" alt="фото Елены" src="https://cut-shot.ru/wp-content/uploads/352CE9F2-6252-4593-ACDC-4A675F5D4421.jpeg"/>
                 </div>
             </section>
-
-        </>
     )
 }
 

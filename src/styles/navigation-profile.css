@@ -20,10 +20,17 @@
     font-size: 14px;
     line-height: 16px;
     font-family: 'Inter', 'Arial', sans-serif;
-    font-weight: 400;
     margin-right: 13px;
     align-self: flex-end;
     padding-bottom: 7px;
+}
+
+.navigation__profile-link:hover {
+    opacity: 0.6;
+}
+
+.navigation__profile-link:active {
+    color: blue;
 }
 
 .navigation__profile-button {

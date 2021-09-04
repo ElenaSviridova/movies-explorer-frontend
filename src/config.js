@@ -1,0 +1,17 @@
+const FILMS_URL = 'https://api.nomoreparties.co/beatfilm-movies';
+const BASE_URL = 'https://api.es.sviridova.nomoredomains.monster';
+const SHORT_MOVIES_DURATION = 40;
+const INITIAL_MOVIES_CARDS_1280 = 12;
+const INITIAL_MOVIES_CARDS_768 = 8;
+const INITIAL_MOVIES_CARDS_320 = 5;
+const ADDITIONAL_MOVIES_CARDS_1280 = 3;
+const ADDITIONAL_MOVIES_CARDS_768_320 = 2;
+
+
+// const BASE_URL = 'http://localhost:3000';
+module.exports = {
+    FILMS_URL, BASE_URL, SHORT_MOVIES_DURATION,
+    INITIAL_MOVIES_CARDS_1280, INITIAL_MOVIES_CARDS_768,
+    INITIAL_MOVIES_CARDS_320, ADDITIONAL_MOVIES_CARDS_1280,
+    ADDITIONAL_MOVIES_CARDS_768_320
+  };

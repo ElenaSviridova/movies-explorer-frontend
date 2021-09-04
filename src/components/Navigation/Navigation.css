@@ -28,6 +28,8 @@
 
 .navigation__link {
     text-decoration: none;
+    border: none;
+    background-color:inherit;
     color: black;
     font-size: 13px;
     line-height: 18px;
@@ -35,7 +37,12 @@
     font-weight: 400;
 }
 
-.navigation__link:hover {
+.navigation__li:link {
+  font-weight: 500;
+  color: chartreuse;
+}
+
+.navigation__li:hover {
     opacity: 0.6;
 }
 
@@ -78,8 +85,6 @@
     opacity: 0.6;
 }
 
-
-
 .navigation__burger-menu {
     display:none;
     z-index: 1;
@@ -102,6 +107,10 @@
     cursor: pointer;
     z-index: 2;
     margin: 12.5px 0;
+  }
+
+  .navigation__menu-btn:hover {
+    opacity: 0.6;
   }
    
   .navigation__menu-btn > span,
@@ -144,6 +153,11 @@
     }
 }
 
+.navigation__menubox-link {
+  text-decoration: none;
+  color: #000;
+}
+
   .navigation__background {
     position: fixed;
     visibility: hidden;
@@ -161,6 +175,8 @@
   }
 
   .navigation__menu-item {
+    border: none;
+    background-color:inherit;
     display: block;
     margin: 0 0 28px;
     color: #333;

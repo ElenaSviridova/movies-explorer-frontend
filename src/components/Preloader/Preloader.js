@@ -1,7 +1,9 @@
-import React from 'react'
-import './Preloader.css'
+import React from 'react';
+import './Preloader.css';
+import '../../styles/unvisible.css';
 
 const Preloader = () => {
+
     return (
         <div className="preloader">
             <div className="preloader__container">

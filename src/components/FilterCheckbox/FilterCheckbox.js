@@ -1,10 +1,15 @@
 import './FilterCheckbox.css';
+import React from 'react';
 
-function FilterCheckbox() {
+function FilterCheckbox({onCheckBoxClick, checkbox}) {
+  
+  function handleCheckBoxClick(event) {
+    onCheckBoxClick(event);
+  }
     return (
       <section className="filter-checkbox">
-            <label for="checkboxButton" className="filter-checkbox__label">
-                <input type="checkbox" className="filter-checkbox__button" id="checkboxButton"/>
+            <label htmlFor="checkboxButton" className="filter-checkbox__label">
+                <input type="checkbox" className="filter-checkbox__button" id="checkboxButton" onChange={handleCheckBoxClick} checked={checkbox.checked}/>
                 <span className="filter-checkbox__slider-round"></span>
                 <p className="filter-checkbox__caption">Короткометражки</p>
             </label>

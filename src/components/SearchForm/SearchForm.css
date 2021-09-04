@@ -30,7 +30,6 @@
     line-height: 34px;
     font-family: 'Inter', 'Arial', sans-serif;
     color: #A0A0A0;
-    margin-bottom: 29px;
     padding: 0 0 15px;
     background-color: #FAFAFA;
     outline: none;
@@ -52,7 +51,6 @@
         text-align: left;
         font-size: 18px;
         line-height: 22px;
-        margin-bottom: 42px;
     }
 }
 
@@ -94,6 +92,24 @@
     opacity: 0.6;
 }
 
+.search__bar-error {
+    color: red;
+    margin: 0;
+    font-size: 12px;
+    line-height: 15px;
+    text-align: center;
+    font-family: 'Inter', 'Arial', sans-serif;
+    padding-top: 5px;
+    display: block;
+}
+
+@media all and (max-width: 390px) {
+    .search__bar-error {
+        text-align: left;
+        font-size: 10px;
+        line-height: 13px;
+    }
+}
 
 
   

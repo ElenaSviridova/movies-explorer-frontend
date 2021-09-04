@@ -6,16 +6,16 @@ import '../../styles/unvisible.css';
 import Navigation from '../Navigation/Navigation';
 import { NavLink } from 'react-router-dom';
 
-function Header({navClassName, navProfile, headerReg}) {
+function Header({navClassName, navProfile, headerReg, onSavedMoviesLinkClick, onMoviesLinkClick}) {
 
     return (
         <header className="header">
               <NavLink exact to="/" className="header__link">
                 <img src={logoBlueC} alt="Картинка логотипа" className="header__logo"/>
               </NavLink>
-              <Navigation navClassName={navClassName} navProfileClassName={navProfile}/>
+              <Navigation navClassName={navClassName} navProfileClassName={navProfile} onSavedMoviesLinkClick={onSavedMoviesLinkClick} onMoviesLinkClick={onMoviesLinkClick}/>
               <div className={headerReg}>
-                <NavLink className="header__register" exact to="/register">Регистрация</NavLink>
+                <NavLink className="header__register" exact to="/signup">Регистрация</NavLink>
                 <NavLink exact to="/signin"  className='header__button'>Войти</NavLink>
               </div>
         </header> 
