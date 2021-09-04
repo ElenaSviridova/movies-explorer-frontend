@@ -18,8 +18,7 @@ function Login({handleLogin}) {
             return
         }
         const { email, password } = values;
-        handleLogin({ email, password });
-        // resetForm();
+        handleLogin({ email, password});
     }
     
     function setInputClassName(input) {
@@ -37,21 +36,20 @@ function Login({handleLogin}) {
             </NavLink>
             <h1 className="login__title">Рады видеть!</h1>
             <form className="login__container" onSubmit={handleSubmit} >
-                <div className="login__enter">
-                <label className="login__label" htmlFor="email">E-mail</label>
-                <input required id="email" className={setInputClassName(errors.email)} type="email" name="email" placeholder="pochta@yandex.ru" value={values.email} onChange={handleChange}></input>
-                <span className={setErrorClassName(errors.email)}>{isValid ? '' : errors.email}</span>
-                <label className="login__label" htmlFor="password">Пароль</label>
-                <input required id="password" className={setInputClassName(errors.password)} type="password" name="password" value={values.password} onChange={handleChange} minLength='4'></input> 
-                <span className={setErrorClassName(errors.password)}>{isValid ? '' : errors.password}</span>
-                </div>
-                <div className="login__enter">
-                    <button type="submit" className="login__button" disabled = {!isValid ? true : false}>Войти</button>
-                    <p className="login__caption">Ещё не зарегистрированы?
-                        <NavLink className="login__link" exact to="/signup">Регистрация</NavLink>
-                    </p>
-                </div>
-                
+                    <div className="login__enter">
+                    <label className="login__label" htmlFor="email">E-mail</label>
+                    <input required id="email" className={setInputClassName(errors.email)} type="email" name="email" placeholder="pochta@yandex.ru" value={values.email} onChange={handleChange}></input>
+                    <span className={setErrorClassName(errors.email)}>{isValid ? '' : errors.email}</span>
+                    <label className="login__label" htmlFor="password">Пароль</label>
+                    <input required id="password" className={setInputClassName(errors.password)} type="password" name="password" value={values.password} onChange={handleChange} minLength='4'></input> 
+                    <span className={setErrorClassName(errors.password)}>{isValid ? '' : errors.password}</span>
+                    </div>
+                    <div className="login__enter">
+                        <button type="submit" className="login__button" disabled = {!isValid ? true : false}>Войти</button>
+                        <p className="login__caption">Ещё не зарегистрированы?
+                            <NavLink className="login__link" exact to="/signup">Регистрация</NavLink>
+                        </p>
+                    </div>
             </form>
         </div>
     )

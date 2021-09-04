@@ -6,7 +6,7 @@ import Register from '../Register/Register';
 import NotFoundError from '../NotFoundError/NotFoundError';
 import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import { CurrentUserContext } from '../../contexts/currentUserContext';
 import moviesApi from '../../utils/MoviesApi';
@@ -14,7 +14,9 @@ import Api from '../../utils/MainApi';
 import * as auth from '../../utils/auth';
 import ProtectedRoute from '../ProtectedRoute';
 import { filterData } from '../Filtering';
-import { BASE_URL } from '../../config';
+import {  BASE_URL, INITIAL_MOVIES_CARDS_1280, INITIAL_MOVIES_CARDS_768,
+  INITIAL_MOVIES_CARDS_320, ADDITIONAL_MOVIES_CARDS_1280,
+  ADDITIONAL_MOVIES_CARDS_768_320 } from '../../config';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -29,14 +31,17 @@ function App() {
   const [moviesCountIndex, setMoviesCountIndex] = useState(12);
   const [savedFilteredMovies, setSavedFilteredMovies] = useState([]);
   const [checkbox, setCheckbox] = useState({checked: true});
+  const [moviesArrayLength, setMoviesArrayLength] = useState(0);
 
   const history = useHistory();
+  const location = useLocation();
 
   const handleError = (error) => console.error(error); 
   const mainApi = new Api({adress: BASE_URL, token: localStorage.getItem('token')});
 
   useEffect(() => {
     checkToken();
+    history.push(location.pathname)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -47,7 +52,10 @@ function App() {
         .then((data) => {
             setCurrentUser(data)
             setLoggedIn(true);
-            setMovies(JSON.parse(localStorage.getItem('filteredMovies')));
+            if (localStorage.getItem('filteredMovies')) {
+              setMovies(JSON.parse(localStorage.getItem('filteredMovies')));
+            }
+            
         })
         .catch(handleError)
     }
@@ -55,7 +63,6 @@ function App() {
 
   useEffect(() => {
     if(loggedIn) {
-      history.push('/movies')
         Promise.all([mainApi.getSavedMovies(), mainApi.getProfileInfo()])
         .then(([data, userData]) => {
             setCurrentUser(userData);
@@ -91,7 +98,7 @@ useEffect(() => {
 
 //отрисовка поиска фильмов
 useEffect(() => {
-  if( movies.length !== 0 ) {
+  if ( movies.length !== 0 ) {
     checkForEmpty(filterData(movies, checkbox.checked, movieSearchQuery));
     displayMoviesAndButton(filterData(movies, checkbox.checked, movieSearchQuery));
     localStorage.setItem('filteredMovies',JSON.stringify(filterData(movies, checkbox.checked, movieSearchQuery))); 
@@ -121,22 +128,22 @@ function displayMoviesAndButton(filteredMovies) {
 //клик по кнопке "Ещё"
 function handleLoadMoreButtonClick() {
   if (document.documentElement.clientWidth > 1280) {
-    setMoviesCountIndex(moviesCountIndex + 3)
+    setMoviesCountIndex(moviesCountIndex + ADDITIONAL_MOVIES_CARDS_1280)
   }
   else if ((document.documentElement.clientWidth > 320) && (document.documentElement.clientWidth < 1280)) {
-    setMoviesCountIndex(moviesCountIndex + 2)
+    setMoviesCountIndex(moviesCountIndex + ADDITIONAL_MOVIES_CARDS_768_320)
   }
 }
 //начальное положение карточек в зависимости от ширины экрана
 function setFirstMoviesCountIndex() {
   if (document.documentElement.clientWidth >= 1280) {
-    setMoviesCountIndex(12)
+    setMoviesCountIndex(INITIAL_MOVIES_CARDS_1280)
   }
   if ((document.documentElement.clientWidth > 320)&&(document.documentElement.clientWidth <= 480)) {
-    setMoviesCountIndex(5)
+    setMoviesCountIndex(INITIAL_MOVIES_CARDS_320)
   }
   else if ((document.documentElement.clientWidth > 480) && (document.documentElement.clientWidth <= 768)) {
-    setMoviesCountIndex(8)
+    setMoviesCountIndex(INITIAL_MOVIES_CARDS_768)
   }
 }
 
@@ -145,11 +152,11 @@ function handleSearchSubmit(e) {
   setFirstMoviesCountIndex();
   setSearchError('');
   setMoviesToShow([]);
-  setIsLoading(true);
-  moviesApi.getMovies()
+  if ((movies.length === 0)||(movies.length !== moviesArrayLength)) {
+    setIsLoading(true);
+    moviesApi.getMovies()
     .then((data) => {
       setIsLoading(false);
-      setMovies(data);
       // eslint-disable-next-line array-callback-return
       data.map((m) => {
         m.thumbnail = 'https://api.nomoreparties.co'+ m.image.formats.thumbnail.url;
@@ -159,12 +166,20 @@ function handleSearchSubmit(e) {
         m.nameEN = m.nameEN ? m.nameEN : m.nameRU;
         m.country = m.country ? m.country : 'нет данных';
       });
+      setMovies(data);
+      setMoviesArrayLength(data.length);
     })
     .catch((error) => {
       console.log(error)
       setSearchError('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
       setIsLoading(false)
     });
+  } else {
+      checkForEmpty(filterData(movies, checkbox.checked, movieSearchQuery));
+      displayMoviesAndButton(filterData(movies, checkbox.checked, movieSearchQuery));
+      localStorage.setItem('filteredMovies',JSON.stringify(filterData(movies, checkbox.checked, movieSearchQuery))); 
+  }
+  
 }
 
 function handleSearchSubmitSavedMovies() {
@@ -205,15 +220,19 @@ function handleLogin({email, password}) {
     const {token} = data; 
     localStorage.setItem('token', token);
     setLoggedIn(true);
+    history.push("/movies")
   })
-  .catch(handleError)
+  .catch((error) => {
+    alert('Произошла ошибка');
+    console.log(error);
+  })
 }
 
 function handleLogout() {
   setCurrentUser({});
   setLoggedIn(false);
   localStorage.removeItem('token');
-  setSavedMovies({});
+  setSavedMovies([]);
   localStorage.removeItem('filteredMovies');
   history.push('/');
 }
@@ -221,22 +240,28 @@ function handleLogout() {
 function handleRegister({userName, email, password}) {
   auth.register(userName, email, password)
   .then(() => {
-    history.push('/');
+    handleLogin({email, password});
   })
-  .catch(handleError);
+  .catch((error) => {
+    alert('Произошла ошибка');
+    console.log(error);
+  });
 }
 
 function handleEditClick(data) {
   const {userName, email} = data;
   mainApi.changeProfileInfo(userName, email)
   .then((res) => {
-    console.log('inapp',res)
+    if (res.ok) {
+      alert('информация изменена')
+    } 
     setCurrentUser({name: res.name, email: res.email})
   })
-  .catch(handleError)
-  if (data) {
-    alert('информация изменена')
-  }
+  .catch((error) => {
+    alert('Произошла ошибка');
+    console.log(error);
+  })
+  
 }
 
 function handleCheckBoxClick(event) {
@@ -303,7 +328,6 @@ return (
             <Route path="/signup">
               <Register handleRegister={handleRegister}/>
             </Route>
-            
             <Route path="*">
               <NotFoundError />
             </Route>
